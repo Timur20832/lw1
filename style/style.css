@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    max-width: 1440px;
+}
+
+.cap-main {
+    background: url("../image/osn.png") no-repeat;
+    width: 1440px;
+    height: 500px;
+}
+
+.cap-main__head {
+    margin-top: 10px;
+    margin-inline: 50px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.cap-main-body {
+    margin-top: 177px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.cap-main__links-link {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: white;
+    text-decoration: none;
+    margin-inline: 50px;
+}
+
+.cap-main-body h1 {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 51px;
+    color: white;
+}
+
+.cap-man-body__text {
+    margin-top: 20px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    color: rgba(255, 255, 255, 0.63);
+}
+
+.cap-main-body__button {
+    margin-top: 31px;
+    width: 167px;
+    height: 44px;
+    background: #DD783F;
+    border-radius: 3px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    border-style: none;
+}
+
+.text-under-head {
+    background-color: #f3eded;
+    height: 65px;
+    display: flex;
+}
+
+.m-links {
+    margin-inline: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.text-under-head__text {
+    list-style: none;
+    margin-inline: 75px;
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    text-align: center;
+    color: #768088;
+}
+
+.group-size {
+    width: 1440px;
+}
+
+h2 {
+    margin-top: 66px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 2px;
+    color: #2E2E2E;
+}
+
+.groups {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 460px);
+    grid-template-rows: 280px;
+    justify-content: center;
+    gap: 20px;
+}
+
+.groups-group1 {
+    background: url("../image/first.png") no-repeat;
+}
+
+.group-header {}
+
+h3 {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    line-height: 30px;
+    color: #FFFFFF;
+}
+
+.p {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 25px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.name {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 35px;
+    color: rgba(255, 255, 255, 0.7);
+
+}
+
+.data {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 35px;
+    color: rgba(255, 255, 255, 0.7);
+    padding-top: 4px;
+
+}
+
+.groups-group1__info {
+    margin-top: 187px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.group-group1__info-pers {}
+
+.groups-group2 {
+    background: url("../image/second.png") no-repeat;
+}
+
+.groups-group2__info {
+    margin-top: 187px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.group-group2__info-pers {}
+
+
+
+
+.second-body {
+    margin-top: 66px;
+    height: 752px;
+    display: grid;
+    grid-template-columns: repeat(3, 296px);
+    grid-template-rows: repeat(2, 291px);
+    justify-content: center;
+    gap: 25px;
+
+}
+
+.second-body-header {
+    margin: 14px 0px 7px 0px;
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    color: #101315;
+}
+
+.second-body-text {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19px;
+    color: #7A7A7A;
+    display: block;
+
+}
+
+.name-body-2 {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 35px;
+    color: #999999;
+}
+
+.footer nav {
+    display: block;
+    margin-right: 250px;
+}
+
+.footer {
+    background: url("../image/Rectangle.png") no-repeat;
+    display: flex;
+    justify-content: space-between;
+    width: 1440px;
+    height: 89px;
+    align-items: center;
+}
+
+.footer img {
+    margin-left: 10px;
+}
+
+.footer a {
+    margin-inline: 10px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 26px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    display: inline-block;
+}
