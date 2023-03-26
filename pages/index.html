@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&family=Oxygen&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="navbar__body">
+            {{ range .Header }}
+            <div class="navbar__head">
+                <img class="navbar__escape" src="static/image/Escape..svg" alt="kek">
+                <ul class="navbar__links">
+                    {{ range .Nav }}
+                    <li><a href="index.html" class="item-links">{{.First}}</a></li>
+                    <li><a href="#" class="item-links">{{.Second}}</a></li>
+                    <li><a href="#" class="item-links">{{.Third}}</a></li>
+                    <li><a href="#" class="item-links">{{.Fourth}}</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+            <div class="navbar__title">
+                {{range }}
+                <h1 class="navbar__header">Let's do it together.</h1>
+                <p class="navbar__text">We travel the world in search of stories. Come along for the ride.</p>
+                <button class="navbar__button"><span>View Latest Posts</span></button>
+                {{end}}
+            </div>
+            {{ end }}
+        </div>
+    </header>
+    <article class="navbar-block size">
+        <ul class="navbar-block__links">
+            <li class="item-nb-links"><a href="#" class="item-decor">Nature</a></li>
+            <li class="item-nb-links"><a href="#" class="item-decor">Photography</a></li>
+            <li class="item-nb-links"><a href="#" class="item-decor">Relaxation</a></li>
+            <li class="item-nb-links"><a href="#" class="item-decor">Vacation</a></li>
+            <li class="item-nb-links"><a href="#" class="item-decor">Travel</a></li>
+            <li class="item-nb-links"><a href="#" class="item-decor">Adventure</a></li>
+        </ul>
+    </article>
+    <div class="posts">
+        <article class="big-posts size">
+            <h2 class="posts__title">Featured Posts</h2>
+            <div class="big-posts__body">
+                <section class="post-one">
+                    <div class="post__header">
+                        <h3 class="post__title"><a href="the-road-ahead.html" class="post__title-link">The Road
+                                Ahead</a>
+                        </h3>
+                        <p class="post__text">The road ahead might be paved - it might not be</p>
+                    </div>
+                    <div class="post__info">
+                        <div class="info__person">
+                            <img src="image/mat.svg" class="img-padding" alt="...">
+                            <span class="person__name">Mat Vogesls</span>
+                        </div>
+                        <span class="info__data">September 25, 2015</span>
+                    </div>
+                </section>
+                <section class="post-two">
+                    <div class="post__header">
+                        <h3 class="post__title">From Top Down</h3>
+                        <p class="post__text">Once a year, go someplace you've never been before.</p>
+                    </div>
+                    <div class="post__info">
+                        <div class="info__person">
+                            <img src="image/wili.svg" class="img-padding" alt="...">
+                            <span class="person__name">William Wong</span>
+                        </div>
+                        <span class="info__data">September 25, 2015</span>
+                    </div>
+                </section>
+            </div>
+        </article>
+        <article class="small-posts size">
+            <h2 class="posts__title">Most Recent</h2>
+            <div class="small-posts__body">
+                <section class="small-post__one">
+                    <img src="static/image/still.jpg" alt="">
+                    <div class="small-post__background-text">
+                        <p class="small-post__header">Still Stading Tall</p>
+                        <div class="container__text"><span class="small-post__text">Life begins at the end of your
+                                comfort
+                                zone.</span></div>
+                        <div class="small-post__info">
+                            <div class="info__person-s">
+                                <img src="image/wili.svg" class="img-padding-s" alt="...-wong.svg">
+                                <span class="info__data-s">William Wong</span>
+                            </div>
+                            <span class="info__data-date">9/25/2015</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="small-post__two">
+                    <img src="static/image/sunny.png" alt="">
+                    <div class="small-post__background-text">
+                        <p class="small-post__header">Sunny side up</p>
+                        <div class="container__text"><span class="small-post__text">No place is ever as bad as they tell
+                                you
+                                it's going to be.</span></div>
+                        <div class="small-post__info">
+                            <div class="info__person-s">
+                                <img src="image/mat.svg" class="img-padding" alt="...-wong.svg">
+                                <span class="info__data-s">William Wong</span>
+                            </div>
+                            <span class="info__data-date">9/25/2015</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="small-post__three">
+                    <img src="static/image/Water.png" alt="">
+                    <div class="small-post__background-text">
+                        <p class="small-post__header">Water Falls</p>
+                        <div class="container__text"><span class="small-post__text">We travel not escape life, but for
+                                life
+                                not
+                                to escape us.</span></div>
+                        <div class="small-post__info">
+                            <div class="info__person-s">
+                                <img src="image/mat.svg" class="img-padding" alt="...-wong.svg">
+                                <span class="info__data-s">William Wong</span>
+                            </div>
+                            <span class="info__data-date">9/25/2015</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="small-post__four">
+                    <img src="static/image/through.png" alt="">
+                    <div class="small-post__background-text">
+                        <p class="small-post__header">Through the Mist</p>
+                        <div class="container__text"><span class="small-post__text">Travel makes you see what a tiny
+                                place
+                                you
+                                occupy in the world.</span></div>
+                        <div class="small-post__info">
+                            <div class="info__person-s">
+                                <img src="image/wili.svg" class="img-padding" alt="...-wong.svg">
+                                <span class="info__data-s">William Wong</span>
+                            </div>
+                            <span class="info__data-date">9/25/2015</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="small-post__five">
+                    <img src="static/image/Awaken.png" alt="">
+                    <div class="small-post__background-text">
+                        <p class="small-post__header">Awaken Early</p>
+                        <div class="container__text"><span class="small-post__text">Not all those who wander are
+                                lost.</span>
+                        </div>
+                        <div class="small-post__info">
+                            <div class="info__person-s">
+                                <img src="image/mat.svg" class="img-padding" alt="...-wong.svg">
+                                <span class="info__data-s">William Wong</span>
+                            </div>
+                            <span class="info__data-date">9/25/2015</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="small-post__six">
+                    <img src="static/image/fals.png" alt="">
+                    <div class="small-post__background-text">
+                        <p class="small-post__header">Try it Always</p>
+                        <div class="container__text">
+                            <span class="small-post__text">The world is a book, and those who do not travel read only
+                                one
+                                page.</span>
+                        </div>
+                        <div class="small-post__info">
+                            <div class="info__person-s">
+                                <img src="image/mat.svg" class="img-padding" alt="...-wong.svg">
+                                <span class="info__data-s">William Wong</span>
+                            </div>
+                            <span class="info__data-date">9/25/2015</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </div>
+    <footer class="footer">
+        <div class="footer__form-found">
+            <div class="form-found__position">
+                <p class="form-found__title">Stay in Touch</p>
+                <div class="form-found__other">
+                    <input type="text" class="form-found__search-txt" placeholder="Enter your email">
+                    <button class="form-found__button-sumbit"><span
+                            class="form-found__text-sumbit">Sumbit</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer__navbar">
+            <div class="navbar__head">
+                <div class=""><img class="footer__escape" src="static/image/Escape..svg" alt="kek"></div>
+                <ul class="footer__links navbar__links">
+                    <li><a href="newINDEX.HTML" class="footer__link item-links">HOME</a></li>
+                    <li><a href="#" class="footer__link item-links">CATEGORIES</a></li>
+                    <li><a href="#" class="footer__link item-links">ABOUT</a></li>
+                    <li><a href="#" class="footer__link item-links">CONTACT</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
