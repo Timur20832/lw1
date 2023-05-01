@@ -10,15 +10,18 @@
 
 .navbar__body {
     background-size: 100%;
-    height: 500px;
+    margin-bottom: 50px;
 }
 
 .navbar__head {
     padding-top: 10px;
-    margin-inline: 50px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+    width: 1300px;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .navbar__escape {
@@ -61,6 +64,7 @@
 
 .navbar__text {
     margin-top: 19px;
+    margin-bottom: 50px;
     font-family: 'Lora';
     font-style: normal;
     font-weight: 400;
@@ -75,7 +79,13 @@
 }
 
 .text__position {
-    margin: 140px 240px 135px 220px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+    width: 1000px;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .text__specifications {

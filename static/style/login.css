@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url("../image/backlogo.png") no-repeat;
+    background-size: cover;
+    background-size: 100%;
+}
+
+.container {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 400px;
+}
+
+.container__header {}
+
+.container__header-logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.container__header-title {
+    margin-top: 20px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+
+.container__body {
+    background-color: #ffff;
+    padding: 40px;
+}
+
+.container__body-title {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 40px;
+    color: #000000;
+}
+
+.container__body-input {
+    margin-top: 50px;
+}
+
+.input__name {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #7A7A7A;
+    margin-bottom: 2px;
+}
+
+.input__size {
+    border: none;
+    border-bottom: 1px solid #EAEAEA;
+    width: 400px;
+    height: 40px;
+    background: #FFFFFF;
+    font-size: 20px;
+}
+
+.container__body-button {
+    border: none;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 93px;
+    height: 48px;
+    background: #DD783F;
+    border-radius: 3px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}

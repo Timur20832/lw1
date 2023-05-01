@@ -12,13 +12,15 @@
     background: url("../image/osn.png") no-repeat;
     background-size: 100%;
     height: 500px;
+
 }
 
 .navbar__head {
     padding-top: 10px;
     display: flex;
     align-items: center;
-    width: 1440px;
+    justify-content: center;
+    width: 1300px;
     justify-content: space-between;
     margin-left: auto;
     margin-right: auto;
@@ -103,11 +105,14 @@
     justify-content: center;
     text-align: center;
     line-height: 65px;
+    width: 1020px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .item-nb-links {
     list-style: none;
-    margin-inline: 75px;
+    margin-inline: auto;
     font-family: 'Lora';
     font-style: normal;
     font-weight: 400;
@@ -157,8 +162,15 @@
     gap: 20px;
 }
 
-.post-one {
-    background: url("../image/first.png") no-repeat;
+.post-one__image {
+    position: absolute;
+    z-index: 1;
+}
+
+.z-indexpos {
+    position: absolute;
+    z-index: 2;
+    width: 460px;
 }
 
 .post__header {
@@ -251,9 +263,12 @@
     margin-top: 24px;
     display: grid;
     grid-template-columns: repeat(3, 296px);
-    grid-template-rows: repeat(2, 291px);
     justify-content: center;
     gap: 25px;
+}
+
+.decor {
+    text-decoration: none !important;
 }
 
 .small-post__header {
@@ -265,6 +280,8 @@
     font-size: 16px;
     line-height: 21px;
     color: #101315;
+    text-decoration: none;
+
 }
 
 .container__text {

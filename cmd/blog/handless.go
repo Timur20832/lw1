@@ -1,30 +1,67 @@
 package main
 
 import (
+	"database/sql"
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
+	"github.com/jmoiron/sqlx"
 )
 
-type indexPage struct {
-	Header []headerdata
-	menu   []menudata
-	bigp   []bigpdata
-	smallp []smallpdata
-	//footer []footerdata
+// only post
+type postPage struct {
+	HeaderPost []headerpostdata
+	PostInfo   []postinfodata
+	Footer     []footerdata
 }
 
-// start header
-type headerdata struct {
+type headerpostdata struct {
 	Escape string
 	Nav    []navdata
 }
 
+type postinfodata struct {
+	Title    string `db:"title"`
+	Subtitle string `db:"subtitle"`
+	Image    string `db:"image_post"`
+	Content  string `db:"contant"`
+}
+
+// only post but footer in index
+
+// only main page
+type indexPage struct {
+	Header     []headerdata
+	Menu       []menudata
+	TitleBpost string
+	Bposts     []*bpostsdata
+	TitleSpost string
+	Sposts     []*spostsdata
+	Footer     []footerdata
+}
+
+// start header
+type headerdata struct {
+	Escape   string
+	Nav      []navdata
+	TopTitle []toptitledata
+}
+
 type navdata struct {
-	First  string
-	Second string
-	Third  string
-	Fourth string
+	First    string
+	FirstURL string
+	Second   string
+	Third    string
+	Fourth   string
+}
+
+type toptitledata struct {
+	Title  string
+	Text   string
+	Button string
 }
 
 // end header
@@ -41,136 +78,185 @@ type menudata struct {
 
 // end menu
 
-// start bigpdata
-type bigpdata struct {
-	TitlePost    string
-	InfoPostOneB []dataInfoPostOneB
-	InfoPostTwoB []dataInfoPostTwoB
+// start posts
+type bpostsdata struct {
+	PostID      string `db:"post_id"`
+	Title       string `db:"title"`
+	Subtitle    string `db:"subtitle"`
+	AuthorName  string `db:"author_name"`
+	AuthorImg   string `db:"author_img"`
+	PublishDate string `db:"publish_date"`
+	ImagePost   string `db:"image_post"`
+	PostURL     string
 }
 
-type dataInfoPostOneB struct {
-	TitlePostOne string
-	TextPostOne  string
-	ImagePerson  string
-	PersonName   string
-	PersonDate   string
+type spostsdata struct {
+	PostID      string `db:"post_id"`
+	Title       string `db:"title"`
+	Subtitle    string `db:"subtitle"`
+	AuthorName  string `db:"author_name"`
+	AuthorImg   string `db:"author_img"`
+	PublishDate string `db:"publish_date"`
+	ImagePost   string `db:"image_post"`
+	PostURL     string
 }
 
-type dataInfoPostTwoB struct {
-	TitlePostTwo string
-	TextPostTwo  string
-	ImagePerson  string
-	PersonName   string
-	PersonDate   string
-}
-
-// end bigpdata
-
-// start smallpost
-type smallpdata struct {
-	TitlePost      string
-	InfoPostOneS   []dataInfoPostOneS
-	InfoPostTwoS   []dataInfoPostTwoS
-	InfoPostThreeS []dataInfoPostThreeS
-	InfoPostFourS  []dataInfoPostFourS
-	InfoPostFiveS  []dataInfoPostFiveS
-	InfoPostSixS   []dataInfoPostSixS
-}
-
-type dataInfoPostOneS struct {
-	ImgPostOneS   string
-	TitlePostOneS string
-	TextPostOne   string
-	ImagePerson   string
-	PersonName    string
-	PersonDate    string
-}
-
-type dataInfoPostTwoS struct {
-	ImgPostTwoS   string
-	TitlePostTwoS string
-	TextPostTwo   string
-	ImagePerson   string
-	PersonName    string
-	PersonDate    string
-}
-
-type dataInfoPostThreeS struct {
-	ImgPostThreeS   string
-	TitlePostThreeS string
-	TextPostThreeS  string
-	ImagePerson     string
-	PersonName      string
-	PersonDate      string
-}
-
-type dataInfoPostFourS struct {
-	ImgPostFourS   string
-	TitlePostFourS string
-	TextPostFourS  string
-	ImagePerson    string
-	PersonName     string
-	PersonDate     string
-}
-
-type dataInfoPostFiveS struct {
-	ImgPostFiveS   string
-	TitlePostFiveS string
-	TextPostFiveS  string
-	ImagePerson    string
-	PersonName     string
-	PersonDate     string
-}
-
-type dataInfoPostSixS struct {
-	ImgPostSixS   string
-	TitlePostSixS string
-	TextPostSixS  string
-	ImagePerson   string
-	PersonName    string
-	PersonDate    string
-}
-
-//end small posts
+//end posts
 
 // start footer
-/*type footerdata struct {
-	FormFound    []dataFormFound
-	NavbarFooter []dataNavbarFooter
+type footerdata struct {
+	FormFound    []dataformfound
+	NavbarFooter []datanavbarfooter
 }
 
-type dataFormFound struct {
+type dataformfound struct {
+	Title  string
+	Button string
 }
 
-type dataNavbarFooter struct {
-}*/
+type datanavbarfooter struct {
+	Escape string
+	Nav    []navdata
+}
 
 // end footer
-func index(w http.ResponseWriter, r *http.Request) {
-	ts, err := template.ParseFiles("pages/index.html")
+
+func index(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		bposts, err := bposts(db)
+		if err != nil {
+			http.Error(w, "Error", 500)
+			log.Println(err)
+			return
+		}
+
+		sposts, err := sposts(db)
+		if err != nil {
+			http.Error(w, "Error", 500)
+			log.Println(err)
+			return
+		}
+
+		ts, err := template.ParseFiles("pages/index.html")
+		if err != nil {
+			http.Error(w, "Internal Server Error", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		data := indexPage{
+			Header:     header(),
+			Menu:       Menu(),
+			TitleBpost: "Feaurted Post",
+			Bposts:     bposts,
+			TitleSpost: "Most Recent",
+			Sposts:     sposts,
+			Footer:     footer(),
+		}
+
+		err = ts.Execute(w, data)
+		if err != nil {
+			http.Error(w, "Mega Error", 500)
+			log.Println(err.Error())
+			return
+		}
+	}
+}
+
+func post(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		postIDStr := mux.Vars(r)["postID"]
+
+		postID, err := strconv.Atoi(postIDStr)
+		if err != nil {
+			http.Error(w, "Invalid order id", 403)
+			log.Println(err)
+			return
+		}
+
+		post, err := postByID(db, postID)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				http.Error(w, "Order not found", 404)
+				log.Println(err)
+				return
+			}
+
+			http.Error(w, "Server Error", 500)
+			log.Println(err)
+			return
+		}
+
+		ts, err := template.ParseFiles("pages/post.html")
+		if err != nil {
+			http.Error(w, "Internal Server Error 1111", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		data := postPage{
+			HeaderPost: headerpost(),
+			PostInfo:   post,
+			Footer:     footer(),
+		}
+
+		err = ts.Execute(w, data)
+		if err != nil {
+			http.Error(w, "Internal Server Error 2222", 500)
+			log.Println(err.Error())
+			return
+		}
+	}
+}
+
+func postByID(db *sqlx.DB, postID int) ([]postinfodata, error) {
+	const query = `
+		SELECT
+		  title,
+		  subtitle,
+		  image_post,
+		  contant
+		FROM
+		  post
+	    WHERE
+		  post_id = ?
+	`
+
+	var post []postinfodata
+
+	err := db.Select(&post, query, postID)
 	if err != nil {
-		http.Error(w, "Internal Server Error", 500) // В случае ошибки парсинга - возвращаем 500
-		log.Println(err.Error())                    // Используем стандартный логгер для вывода ошбики в консоль
-		return                                      // Не забываем завершить выполнение ф-ии
+		return nil, err
 	}
 
-	data := indexPage{
-		Header: header(),
-	}
+	return post, nil
+}
 
-	err = ts.Execute(w, data)
-	if err != nil {
-		http.Error(w, "Mega Error", 500)
-		log.Println(err.Error())
-		return
+func headerpost() []headerpostdata {
+	return []headerpostdata{
+		{
+			Escape: "../static/image/Escape_Black.png",
+			Nav:    nav(),
+		},
 	}
 }
 
 func header() []headerdata {
 	return []headerdata{
 		{
-			Escape: "static/image/Escape..svg",
-			Nav:    nav(),
+			Escape:   "static/image/Escape..svg",
+			Nav:      nav(),
+			TopTitle: toptitle(),
+		},
+	}
+}
+
+func toptitle() []toptitledata {
+	return []toptitledata{
+		{
+			Title:  "Let's do it together.",
+			Text:   "We travel the world in search of stories. Come along for the ride.",
+			Button: "View Latest Posts",
 		},
 	}
 }
@@ -178,10 +264,113 @@ func header() []headerdata {
 func nav() []navdata {
 	return []navdata{
 		{
-			First:  "HOME",
-			Second: "CATEGORIES",
-			Third:  "ABOUT",
-			Fourth: "CONTACT",
+			First:    "HOME",
+			FirstURL: "/home",
+			Second:   "CATEGORIES",
+			Third:    "ABOUT",
+			Fourth:   "CONTACT",
+		},
+	}
+}
+
+func Menu() []menudata {
+	return []menudata{
+		{
+			One:   "Nature",
+			Two:   "Photography",
+			Three: "Relaxation",
+			Four:  "Vacation",
+			Five:  "Travel",
+			Six:   "Adventure",
+		},
+	}
+}
+
+func bposts(db *sqlx.DB) ([]*bpostsdata, error) {
+	const query = `
+	SELECT
+		  post_id,
+		  title,
+		  subtitle,
+		  author_name,
+		  author_img,
+		  publish_date,
+		  image_post
+	FROM
+		  post
+	WHERE featured = 1
+	`
+
+	var bposts []*bpostsdata
+
+	err := db.Select(&bposts, query)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, post := range bposts {
+		post.PostURL = "/post/" + post.PostID
+	}
+
+	log.Println(bposts)
+
+	return bposts, nil
+}
+
+func sposts(db *sqlx.DB) ([]*spostsdata, error) {
+	const query = `
+	SELECT
+		  post_id,
+		  title,
+		  subtitle,
+		  author_name,
+		  author_img,
+		  publish_date,
+		  image_post
+	FROM
+		  post
+	WHERE featured = 0
+	`
+
+	var sposts []*spostsdata
+
+	err := db.Select(&sposts, query)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, post := range sposts {
+		post.PostURL = "/post/" + post.PostID
+	}
+
+	log.Println(sposts)
+
+	return sposts, nil
+}
+
+func footer() []footerdata {
+	return []footerdata{
+		{
+			FormFound:    formfounder(),
+			NavbarFooter: navbarfooter(),
+		},
+	}
+}
+
+func formfounder() []dataformfound {
+	return []dataformfound{
+		{
+			Title:  "Stay in Touch",
+			Button: "Sumbit",
+		},
+	}
+}
+
+func navbarfooter() []datanavbarfooter {
+	return []datanavbarfooter{
+		{
+			Escape: "../static/image/Escape..svg",
+			Nav:    nav(),
 		},
 	}
 }
