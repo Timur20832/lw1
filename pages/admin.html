@@ -5,38 +5,165 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style/login.css">
+    <link rel="stylesheet" href="../static/style/admin.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora&family=Oxygen&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 
 <body>
-    <article class="container">
-        <!-- title subtitle-->
-        <section class="container__header">
-            <div class="container__header-logo">
-                <img src="../static/image/EscapeForLogin.svg" alt="Escape">
-                <img src="../static/image/authorLogo.svg" alt="author">
+    {{ range .AdminHeader }}
+    <header class="capbar">
+        <div class="position">
+            <div class="capbar__logo">
+                <img src={{.ImageLogo1}} alt="">
+                <img src={{.ImageLogo2}} alt="">
             </div>
-            <span class="container__header-title">Log in to start creating</span>
-        </section>
-        <!-- log password-->
-        <section class="container__body">
-            <p class="container__body-title">Log In</p>
-            <div class="container__body-input">
-                <p class="input__name">Email</p>
-                <input class="input__size" type="email">
+            <div class="capbar__other">
+                <p class="capbar__first-char">{{.FirstCharName}}</p>
+                <img class="capbar__exit" src="{{.ImageExit}}" alt="">
             </div>
-            <div class="container__body-input">
-                <p class="input__name">Password</p>
-                <input class="input__size" type="password">
-                <img src="../static/image/Vector.svg" alt="">
-            </div>
-            <button class="container__body-button">Log In</button>
-        </section>
+        </div>
+    </header>
+    {{ end }}
 
+    {{range .MainInfo}}
+    <article class="main-info">
+        <section>
+            <p class="main-info__title">{{.Title}}</p>
+            <p class="main-info__subtitle">{{.Subtitle}}</p>
+        </section>
+        <button type="submit" class="main-info__button" name="megaButton" onclick="formSend()">{{.Button}}</button>
     </article>
+    {{end}}
+    <form action="#" id="form" method="post" name="main">
+        {{range .FullPage}}
+        <article class="all-inputs">
+            <div>
+                <p class="all-inputs__title">{{.MainTitle}}</p>
+            </div>
+            <div class="main-inputs">
+                <div class="left-inputs" id="main">
+                    <div class="input__title">
+                        <p class="text-style">{{.Title}}</p>
+                        <input type="text" class="input-size _req" name="titleInput" onblur="Preview()">
+                    </div>
+
+                    <div class="input__description">
+                        <p class="text-style">{{.Description}}</p>
+                        <input type="text" class="input-size _req" name="subtitleInput" onblur="Preview()">
+                    </div>
+
+                    <div class="input__name">
+                        <p class="text-style">{{.AuthorName}}</p>
+                        <input type="text" class="input-size but__input-size _req" name="AnameInput" onblur="Preview()">
+                    </div>
+
+                    <div class="input__image-author">
+                        <p class="text-style">{{.TextAuthorphoto}}</p>
+                        <div class="position-for-url" id="preview_author">
+                            <label for="author-image">
+                                <img class="round-image" src={{.Authorphoto}} id="previewA" alt="">
+                            </label>
+                            <input class="trash-hidden _req1" type="file" id="author-image" name="AimageInput">
+                            <label for="author-image">
+                                <p class="text-upload">{{.Upload}}</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="input__date">
+                        <p class="text-style">{{.TextDate}}</p>
+                        <input type="date" class="input-size _req" name="dateInput" onblur="Preview()">
+                    </div>
+
+                    <div class="input__big-image">
+                        <p class="text-style">{{.TextImage}}</p>
+                        <div class="">
+                            <input id="big-image" class="trash-hidden _req1" type="file" name="BimageInput">
+                            <label id="block1" for="big-image">
+                                <div class="big-image__size position__bs-image" name="Bblank">
+                                    <img src={{.ImageCamera}} alt="">
+                                    <p class="text-upload">{{.Upload}}</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="inpit__small-image">
+                        <p class="text-style">{{.TextImage}}</p>
+                        <div class="">
+                            <input id="small-image" class="trash-hidden _req1" type="file" name="SimageInput">
+                            <label id="block2" for="small-image">
+                                <div class="small-image__size position__bs-image" name="Sblank">
+                                    <img src={{.ImageCamera}} alt="">
+                                    <p class="text-upload">{{.Upload}}</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="right-inputs">
+                        <div class="inputs__big-visual">
+                            <p class="text-style">{{.PreviewArticle1}}</p>
+                            <div class="input__item">
+                                <img class="visual__image" src={{.PreviewImage1}} alt="">
+                                <div class="position-all">
+                                    <p name="preview_title" class="post__title-style st-1">{{.TitleInPreview}}</p>
+                                    <p name="preview_subtitle" class="post__subtitle-style sst-1">{{.SubtitleInPreview}}
+                                    </p>
+                                    <img id="preview-post-one" src={{.PreviewImageChange}} class="unload-image" alt="">
+                                    <div class="blur-block"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inputs__small-visual">
+                        <p class="text-style">{{.PreviewArticle2}}</p>
+                        <div class="input__item">
+                            <img class="visual__image1" src={{.PreviewImage2}} alt="">
+                            <div class="position-all but__position-all">
+                                <div class="position__titles">
+                                    <img id="preview-post-two" src={{.PreviewImageChange}} class="unload-images" alt="">
+                                    <div class="small-post__background-text">
+                                        <div class="post__name">
+                                            <p name="preview_title" class="post__title-style">{{.TitleInPreview}}</p>
+                                            <p name="preview_subtitle" class="post__subtitle-style mega-border">
+                                                {{.SubtitleInPreview}}</p>
+                                        </div>
+                                        <div class="small-post__info">
+                                            <div class="info__person" id="block3">
+                                                <img src={{.PreviewImageChangeAuthor}} class="round-size" alt="d"
+                                                    id="change_au-image">
+                                                <span class="info__data-s" name="preview_author_name">{{.RandomName}}
+                                                </span>
+                                            </div>
+                                            <span class="info__data-date" name="preview_date"> {{.RandomDate}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </article>
+
+        <footer class="footer__background">
+            <h1 class="footer__title">{{.FooterTitle}}</h1>
+            <div class="">
+                <p class="text-style footer__subtitle-size">{{.FooterSubtitle}}</p>
+                <textarea placeholder="Type anything you want ..." class="footer__large-text _req"></textarea>
+            </div>
+        </footer>
+    </form>
+    {{end}}
+    <script src="../static/style/admin.js"></script>
 </body>
+
 
 </html>

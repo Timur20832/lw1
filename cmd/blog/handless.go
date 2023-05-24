@@ -121,6 +121,28 @@ type datanavbarfooter struct {
 
 // end footer
 
+// start admin
+type AdminPage struct {
+	AdminHeader []adminheaderdata
+	MainInfo    []maininfodata
+	FullPage    []fullpagedata
+}
+
+type adminheaderdata struct {
+	ImageLogo1    string
+	ImageLogo2    string
+	FirstCharName string
+	ImageExit     string
+}
+
+type maininfodata struct {
+	Title    string
+	Subtitle string
+	Button   string
+}
+
+//end admin
+
 func index(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		bposts, err := bposts(db)
@@ -371,6 +393,112 @@ func navbarfooter() []datanavbarfooter {
 		{
 			Escape: "../static/image/Escape..svg",
 			Nav:    nav(),
+		},
+	}
+}
+
+func admin(w http.ResponseWriter, r *http.Request) {
+	ts, err := template.ParseFiles("pages/admin.html")
+	if err != nil {
+		http.Error(w, "Internal Server Error", 500)
+		log.Println(err.Error())
+		return
+	}
+
+	data := AdminPage{
+		AdminHeader: adminheader(),
+		MainInfo:    maininfo(),
+		FullPage:    fullpage(),
+	}
+
+	err = ts.Execute(w, data)
+	if err != nil {
+		http.Error(w, "Internal Server Error", 500)
+		log.Println(err.Error())
+		return
+	}
+}
+
+func adminheader() []adminheaderdata {
+	return []adminheaderdata{
+		{
+			ImageLogo1:    "../static/image/escapeforadmin.svg",
+			ImageLogo2:    "../static/image/authorforadmin.svg",
+			FirstCharName: "K",
+			ImageExit:     "../static/image/log-out.svg",
+		},
+	}
+}
+
+func maininfo() []maininfodata {
+	return []maininfodata{
+		{
+			Title:    "New Post",
+			Subtitle: "Fill out the form bellow and publish your article",
+			Button:   "Publish",
+		},
+	}
+}
+
+type fullpagedata struct {
+	MainTitle       string
+	Title           string
+	Description     string
+	AuthorName      string
+	TextAuthorphoto string
+	Authorphoto     string
+	TextDate        string
+	ImageCamera     string
+	Upload          string
+	TextImage       string
+
+	PreviewArticle1 string
+	PreviewImage1   string
+
+	PreviewArticle2 string
+	PreviewImage2   string
+
+	TitleInPreview           string
+	SubtitleInPreview        string
+	PreviewImageChange       string
+	PreviewImageChangeAuthor string
+	RandomName               string
+	RandomDate               string
+
+	FooterTitle    string
+	FooterSubtitle string
+
+	ImageMegaCamera string
+	ImageMegaTrash  string
+}
+
+func fullpage() []fullpagedata {
+	return []fullpagedata{
+		{
+			MainTitle:                "Main Information",
+			Title:                    "Title",
+			Description:              "Short description",
+			AuthorName:               "Author name",
+			TextAuthorphoto:          "Author Photo",
+			Authorphoto:              "../static/image/camera-without.svg",
+			TextDate:                 "Publish Date",
+			ImageCamera:              "../static/image/camera.svg",
+			Upload:                   "Upload",
+			TextImage:                "Hero Image",
+			PreviewArticle1:          "Article preview",
+			PreviewImage1:            "../static/image/megaphone.jpg",
+			PreviewArticle2:          "Post card preview",
+			PreviewImage2:            "../static/image/smallphone.jpg",
+			TitleInPreview:           "New Post",
+			SubtitleInPreview:        "Please, enter any description",
+			PreviewImageChangeAuthor: "../static/image/blankLogo.png",
+			PreviewImageChange:       "../static/image/kek.jpg",
+			RandomName:               "Enter author name",
+			RandomDate:               "4/19/2023",
+			FooterTitle:              "Content",
+			FooterSubtitle:           "Post content (plain text)",
+			ImageMegaCamera:          "../static/image/camera.png",
+			ImageMegaTrash:           "../static/image/trash-2.png",
 		},
 	}
 }
