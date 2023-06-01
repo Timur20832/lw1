@@ -238,7 +238,7 @@ body {
 .blur-block {
     position: absolute;
     width: 119px;
-    height: 385px;
+    height: 300px;
     right: 0px;
     top: 0px;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 84.72%);
@@ -377,4 +377,28 @@ body {
 
 .andpadding {
     margin-top: 5px;
+}
+
+#big_trash-remove {
+    position: relative;
+    top: -24px;
+    right: -100px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.position_text_camera {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#small_trash-remove {
+    position: relative;
+    top: -24px;
+    right: -100px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }

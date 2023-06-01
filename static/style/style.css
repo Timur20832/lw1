@@ -3,40 +3,43 @@
     padding: 0;
 }
 
+
 .navbar {
-    position: relative;
-    left: 0%;
+    height: 565px;
 }
 
-.navbar__body {
-    background: url("../image/osn.png") no-repeat;
-    background-size: 100%;
+.container {
+    max-width: 940px;
+    margin: 0px auto;
+}
+
+.navbar__background {
+    width: 100%;
+    position: absolute;
+    z-index: 1;
     height: 500px;
-
+    object-fit: cover;
 }
+
 
 .navbar__head {
-    padding-top: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 1300px;
     justify-content: space-between;
-    margin-left: auto;
-    margin-right: auto;
+    position: relative;
+    z-index: 10;
+    padding-top: 20px;
 }
 
 
-.navbar__escape {
-    margin-top: 10px;
-    margin-left: 205px;
-}
 
 .navbar__title {
     margin-top: 125px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 10;
 }
 
 .navbar__header {
@@ -46,13 +49,12 @@
     font-size: 48px;
     letter-spacing: 4.2px;
     color: #FFFFFF;
+    text-align: center;
 }
 
 .navbar__links {
     list-style: none;
     display: flex;
-    margin-top: 15px;
-    margin-right: 210px;
 }
 
 .item-links {
@@ -63,7 +65,11 @@
     line-height: 20px;
     color: white;
     text-decoration: none;
-    margin-inline: 25px;
+}
+
+.links__beetwen:not(:last-child) {
+    margin-right: 25px;
+
 }
 
 .navbar__text {
@@ -91,51 +97,40 @@
     text-align: center;
     color: #FFFFFF;
     border-style: none;
-    margin-bottom: 30px;
 }
 
 .navbar-block {
-    height: 65px;
     background: #ffffff no-repeat;
+    position: relative;
+    z-index: 10;
+    top: 33%;
 }
 
 .navbar-block__links {
-    padding-top: calc(65px/3);
     display: flex;
-    justify-content: center;
-    text-align: center;
-    line-height: 65px;
-    width: 1020px;
-    margin-left: auto;
-    margin-right: auto;
 }
+
 
 .item-nb-links {
     list-style: none;
-    margin-inline: auto;
     font-family: 'Lora';
     font-style: normal;
-    font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    text-align: center;
     color: #768088;
 }
 
-.item-decor {
-    text-decoration: none;
+.item-nb-links:not(:last-child) {
+    margin-right: auto;
 }
+
 
 .posts {
     background: #F7F7F7;
     padding-bottom: 108px;
 }
 
-.big-posts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 
 .posts__title {
     padding-top: 58px;
@@ -148,16 +143,15 @@
     text-align: center;
     letter-spacing: 2px;
     color: #2E2E2E;
-    width: 200px;
     border-bottom: 3px #DEDEDE solid;
-
+    width: 200px;
+    margin: auto;
 }
 
 .big-posts__body {
     margin-top: 24px;
     display: grid;
     grid-template-columns: repeat(2, 460px);
-    grid-template-rows: 280px;
     justify-content: center;
     gap: 20px;
 }
@@ -168,13 +162,15 @@
 }
 
 .z-indexpos {
-    position: absolute;
+    position: relative;
     z-index: 2;
-    width: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 280px;
 }
 
 .post__header {
-    margin-top: 157px;
     margin-left: 20px;
 }
 
@@ -245,15 +241,7 @@
     margin: 15px 20px 5px 20px;
 }
 
-.post-two {
-    background: url("../image/second.png") no-repeat;
-}
 
-.small-posts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .small-post__background-text {
     background-color: #FFFFFF;
@@ -265,6 +253,17 @@
     grid-template-columns: repeat(3, 296px);
     justify-content: center;
     gap: 25px;
+}
+
+.small-post__image-size {
+    width: 296px;
+    height: 150px;
+}
+
+.info__person-size {
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
 }
 
 .decor {
@@ -337,34 +336,34 @@
 }
 
 .footer {
-    background: url("../image/navbarbackground.png") no-repeat;
-    background-size: 100%;
-    height: 378px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    gap: 100px;
 }
 
+.footer__background {
+    height: 378px;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+}
 
 .footer__navbar {
     background-color: rgba(35, 47, 56, 0.6);
     width: 100%;
-    /* height: 89px; */
-    margin-top: 90px;
-    /* padding: 25px; */
-    /* display: flex; */
-    /* justify-content: space-between; */
-    /* width: 1040px; */
-    padding-top: 32px;
-    padding-bottom: 15px;
+    height: 70px;
+    z-index: 10;
 }
 
-.form-found__position {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+.footer__form-found {
+    position: relative;
+    z-index: 10;
 }
+
 
 .form-found__other {
     display: flex;
@@ -383,6 +382,8 @@
     color: white;
     padding-bottom: 17px;
     width: 200px;
+    position: relative;
+    margin: auto;
     border-bottom: 1px #DEDEDE solid;
 }
 
@@ -416,14 +417,6 @@
     margin-left: 10px;
 }
 
-.footer__escape {
-    padding-top: 23px;
-    padding-left: 205px;
-}
-
-.footer__links {
-    margin-left: 555px;
-}
 
 .footer__link {
     color: rgba(255, 255, 255, 0.6);
@@ -432,4 +425,95 @@
 
 .navbar__decoration {
     list-style: none;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        max-width: 700px;
+    }
+
+    .big-posts__body {
+        grid-template-columns: repeat(2, 345px);
+        gap: 15px;
+    }
+
+    .post-one__image {
+        max-width: 345px;
+        height: 280px;
+    }
+
+    .small-posts__body {
+        grid-template-columns: repeat(3, 222px);
+        gap: 20px;
+    }
+
+    .small-post__image-size {
+        width: 222px;
+        height: 150px;
+    }
+
+    .small-post__text {
+        padding: 0px 22px 32px 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 480px;
+    }
+
+    .navbar {
+        height: 551px;
+    }
+
+    .navbar-block {
+        top: 8%;
+    }
+
+    .navbar__background {
+        height: 430px;
+    }
+
+    .navbar__title {
+        margin-top: 55px;
+        margin-bottom: 70px;
+    }
+
+    .item-nb-links {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .navbar-block__links {
+        display: grid;
+        grid-template-columns: 120px 120px 120px;
+        justify-content: center;
+        gap: 25px;
+    }
+
+    .big-posts__body {
+        grid-template-columns: repeat(1, 440px);
+        gap: 15px;
+    }
+
+    .post-one__image {
+        max-width: 440px;
+        height: 280px;
+    }
+
+
+    .small-posts__body {
+        grid-template-columns: repeat(1, 440px);
+        gap: 20px;
+    }
+
+    .small-post__image-size {
+        width: 440px;
+        height: 150px;
+    }
+
+    .small-post__text {
+        padding: 0px 22px 32px 13px;
+    }
+
 }

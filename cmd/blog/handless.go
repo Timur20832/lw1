@@ -2,10 +2,16 @@ package main
 
 import (
 	"database/sql"
+	"encoding/base64"
+	"encoding/json"
+	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
@@ -502,3 +508,150 @@ func fullpage() []fullpagedata {
 		},
 	}
 }
+
+type createPostRequest struct {
+	Title           string `json:"title_g"`
+	Description     string `json:"subtitle_g"`
+	AuthorName      string `json:"author_name_g"`
+	AuthorPhoto     string `json:"author_url_name"`
+	AuthorPhotoName string `json:"author_url_name_base64"`
+	Date            string `json:"date_g"`
+	BigImage        string `json:"big_image_name"`
+	BigImageName    string `json:"big_image_name_base64"`
+	SmallImage      string `json:"small_image_name"`
+	SmallImageName  string `json:"small_image_name_base64"`
+	ContentPost     string `json:"text_area_content_g"`
+}
+
+func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		reqData, err := io.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "1Error", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		var req createPostRequest
+
+		err = json.Unmarshal(reqData, &req)
+		if err != nil {
+			http.Error(w, "2Error", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		b64Author := req.AuthorPhotoName[strings.IndexByte(req.AuthorPhotoName, ',')+1:]
+		authorImg, err := base64.StdEncoding.DecodeString(b64Author)
+		if err != nil {
+			http.Error(w, "img", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		fileAuthor, err := os.Create("static/image/" + req.AuthorPhoto)
+		if err != nil {
+			http.Error(w, "file", 500)
+			fmt.Println(err.Error())
+			return
+		}
+
+		_, err = fileAuthor.Write(authorImg)
+		if err != nil {
+			http.Error(w, "write", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		b64Big := req.BigImageName[strings.IndexByte(req.BigImageName, ',')+1:]
+		bigImg, err := base64.StdEncoding.DecodeString(b64Big)
+		if err != nil {
+			http.Error(w, "img", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		fileBig, err := os.Create("static/image/" + req.BigImage)
+		if err != nil {
+			http.Error(w, "file", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		_, err = fileBig.Write(bigImg)
+		if err != nil {
+			http.Error(w, "write", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		b64Small := req.SmallImageName[strings.IndexByte(req.SmallImageName, ',')+1:]
+		smallImg, err := base64.StdEncoding.DecodeString(b64Small)
+		if err != nil {
+			http.Error(w, "img", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		fileSmall, err := os.Create("static/image/" + req.SmallImage)
+		if err != nil {
+			http.Error(w, "file", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		_, err = fileSmall.Write(smallImg)
+		if err != nil {
+			http.Error(w, "write", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		err = saveOrder(db, req)
+		if err != nil {
+			http.Error(w, "bd", 500)
+			log.Println(err.Error())
+			return
+		}
+		return
+	}
+}
+
+func saveOrder(db *sqlx.DB, req createPostRequest) error {
+	const query = `
+		INSERT INTO
+			post
+		(
+			title,
+			subtitle,
+			author_name,
+			author_img,
+			publish_date,
+			image_post,
+			contant,
+			featured
+		)
+		VALUES
+		(
+			?,
+			?,
+			?,
+			CONCAT('../static/image/', ?),
+			?,
+			CONCAT('../static/image/', ?),
+			?,
+			?
+		)
+	`
+
+	_, err := db.Exec(query, req.Title, req.Description, req.AuthorName, req.AuthorPhoto, req.Date, req.SmallImage, req.ContentPost, 0)
+	return err
+}
+
+/*
+func formatDate(oldDate string) string {
+	dateStr := strings.Split(oldDate, "-")
+	newDateStr := dateStr[2] + "/" + dateStr[1] + "/" + dateStr[0]
+	return newDateStr
+}
+*/

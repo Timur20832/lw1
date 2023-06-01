@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="../static/style/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora&family=Oxygen&display=swap" rel="stylesheet">
@@ -12,116 +12,128 @@
 </head>
 
 <body>
-    <header class="navbar">
-        <div class="navbar__body">
-            {{ range .Header }}
-            <div class="container">
-                <div class="navbar__head">
-                    <img class="navbar__escape" src="{{ .Escape }}" alt="kek">
-                    <ul class="navbar__links">
-                        {{ range .Nav }}
-                        <li><a href="{{ .FirstURL }}" class="item-links">{{.First}}</a></li>
-                        <li><a href="#" class="item-links">{{.Second}}</a></li>
-                        <li><a href="#" class="item-links">{{.Third}}</a></li>
-                        <li><a href="#" class="item-links">{{.Fourth}}</a></li>
+    <div class="navbar">
+        <header class="navbar__block-1">
+            <div class="navbar__body">
+                {{ range .Header }}
+                <img src="../static/image/osn.png" alt="#" class="navbar__background">
+                <div class="container">
+                    <div class="navbar__head">
+                        <img class="navbar__escape" src="{{ .Escape }}" alt="kek">
+                        <ul class="navbar__links">
+                            {{ range .Nav }}
+                            <li class="links__beetwen"><a href="{{ .FirstURL }}" class="item-links">{{.First}}</a></li>
+                            <li class="links__beetwen"><a href="#" class="item-links">{{.Second}}</a></li>
+                            <li class="links__beetwen"><a href="#" class="item-links">{{.Third}}</a></li>
+                            <li class="links__beetwen"><a href="#" class="item-links">{{.Fourth}}</a></li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                    <div class="header__burger"></div>
+                    <div class="navbar__title">
+                        {{ range .TopTitle }}
+                        <h1 class="navbar__header">{{ .Title }}</h1>
+                        <p class="navbar__text">{{ .Text }}</p>
+                        <button class="navbar__button"><span>{{ .Button }}</span></button>
                         {{ end }}
-                    </ul>
+                    </div>
+                    {{ end }}
                 </div>
             </div>
-            <div class="navbar__title">
-                {{ range .TopTitle }}
-                <h1 class="navbar__header">{{ .Title }}</h1>
-                <p class="navbar__text">{{ .Text }}</p>
-                <button class="navbar__button"><span>{{ .Button }}</span></button>
-                {{ end }}
+        </header>
+        <article class="navbar-block size">
+            <div class="container">
+                <ul class="navbar-block__links">
+                    {{ range .Menu }}
+                    <li class="item-nb-links">{{ .One }}</li>
+                    <li class="item-nb-links">{{ .Two }}</li>
+                    <li class="item-nb-links">{{ .Three }}</li>
+                    <li class="item-nb-links">{{ .Four }}</li>
+                    <li class="item-nb-links">{{ .Five }}</li>
+                    <li class="item-nb-links">{{ .Six }}</li>
+                    {{ end }}
+                </ul>
             </div>
-            {{ end }}
-        </div>
-    </header>
-    <article class="navbar-block size">
-        <ul class="navbar-block__links">
-            {{ range .Menu }}
-            <li class="item-nb-links"><a href="#" class="item-decor">{{ .One }}</a></li>
-            <li class="item-nb-links"><a href="#" class="item-decor">{{ .Two }}</a></li>
-            <li class="item-nb-links"><a href="#" class="item-decor">{{ .Three }}</a></li>
-            <li class="item-nb-links"><a href="#" class="item-decor">{{ .Four }}</a></li>
-            <li class="item-nb-links"><a href="#" class="item-decor">{{ .Five }}</a></li>
-            <li class="item-nb-links"><a href="#" class="item-decor">{{ .Six }}</a></li>
-            {{ end }}
-        </ul>
-    </article>
+        </article>
+    </div>
     <div class="posts">
         <article class="big-posts size">
-            <h2 class="posts__title">{{ .TitleBpost }}</h2>
-            <div class="big-posts__body">
-                {{ range .Bposts }}
-                <section class="post-one">
-                    <img src="{{ .ImagePost }}" alt="" class="post-one__image">
-                    <div class="z-indexpos">
-                        <div class="post__header">
-                            <a href="{{ .PostURL }}" class="post__title">{{ .Title }}</a>
-                            <p class="post__text">{{ .Subtitle }}</p>
-                        </div>
-                        <div class="post__info">
-                            <div class="info__person">
-                                <img src="{{ .AuthorImg }}" class="img-padding" alt="...">
-                                <span class="person__name">{{ .AuthorName }}</span>
+            <div class="container">
+                <h2 class="posts__title">{{ .TitleBpost }}</h2>
+                <div class="big-posts__body">
+                    {{ range .Bposts }}
+                    <section class="post-one">
+                        <img src="{{ .ImagePost }}" alt="" class="post-one__image">
+                        <div class="z-indexpos">
+                            <div class="post__header">
+                                <a href="{{ .PostURL }}" class="post__title">{{ .Title }}</a>
+                                <p class="post__text">{{ .Subtitle }}</p>
                             </div>
-                            <span class="info__data">{{ .PublishDate }}</span>
+                            <div class="post__info">
+                                <div class="info__person">
+                                    <img src="{{ .AuthorImg }}" class="img-padding" alt="...">
+                                    <span class="person__name">{{ .AuthorName }}</span>
+                                </div>
+                                <span class="info__data">{{ .PublishDate }}</span>
+                            </div>
                         </div>
-                    </div>
-                </section>
-                {{ end }}
+                    </section>
+                    {{ end }}
+                </div>
             </div>
         </article>
         <article class="small-posts size">
-            <h2 class="posts__title">{{ .TitleSpost }}</h2>
-            <div class="small-posts__body">
-                {{ range .Sposts }}
-                <section class="small-post__one">
-                    <img src="{{ .ImagePost }}" alt="">
-                    <div class="small-post__background-text">
-                        <a href="{{ .PostURL }}" class="small-post__header decor">{{ .Title }}</a>
-                        <div class="container__text"><span class="small-post__text">{{ .Subtitle }}</span></div>
-                        <div class="small-post__info">
-                            <div class="info__person-s">
-                                <img src="{{ .AuthorImg}}" class="img-padding-s" alt="...-wong.svg">
-                                <span class="info__data-s">{{ .AuthorName }}</span>
+            <div class="container">
+                <h2 class="posts__title">{{ .TitleSpost }}</h2>
+                <div class="small-posts__body">
+                    {{ range .Sposts }}
+                    <section class="small-post__one">
+                        <img class="small-post__image-size" src="{{ .ImagePost }}" alt="">
+                        <div class="small-post__background-text">
+                            <a href="{{ .PostURL }}" class="small-post__header decor">{{ .Title }}</a>
+                            <div class="container__text"><span class="small-post__text">{{ .Subtitle }}</span></div>
+                            <div class="small-post__info">
+                                <div class="info__person-s">
+                                    <img class="info__person-size" src="{{ .AuthorImg}}" alt="...-wong.svg">
+                                    <span class="info__data-s">{{ .AuthorName }}</span>
+                                </div>
+                                <span class="info__data-date">{{ .PublishDate }}</span>
                             </div>
-                            <span class="info__data-date">{{ .PublishDate }}</span>
                         </div>
-                    </div>
-                </section>
-                {{ end }}
+                    </section>
+                    {{ end }}
+                </div>
             </div>
         </article>
     </div>
     {{ range .Footer}}
     <footer class="footer">
+        <img src="../static/image/navbarbackground.png" alt="" class="footer__background">
         {{ range .FormFound}}
-        <div class="footer__form-found">
-            <div class="form-found__position">
-                <p class="form-found__title">{{ .Title}}</p>
-                <div class="form-found__other">
-                    <input type="text" class="form-found__search-txt" placeholder="Enter your email">
-                    <button class="form-found__button-sumbit"><span class="form-found__text-sumbit">{{ .Button
-                            }}</span></button>
-                </div>
+        <div class="footer__form-found container">
+            <p class="form-found__title">{{ .Title}}</p>
+            <div class="form-found__other">
+                <input type="text" class="form-found__search-txt" placeholder="Enter your email">
+                <button class="form-found__button-sumbit"><span class="form-found__text-sumbit">{{ .Button
+                        }}</span></button>
             </div>
         </div>
         {{ end }}
         {{ range .NavbarFooter}}
         <div class="footer__navbar">
-            <div class="navbar__head">
-                <div class=""><img class="footer__escape" src="{{ .Escape }}" alt="kek"></div>
-                <ul class="footer__links navbar__links">
-                    {{ range .Nav}}
-                    <li><a href="{{ .FirstURL }}" class="footer__link item-links">{{ .First }}</a></li>
-                    <li><a href="#" class="footer__link item-links">{{ .Second }}</a></li>
-                    <li><a href="#" class="footer__link item-links">{{ .Third }}</a></li>
-                    <li><a href="#" class="footer__link item-links">{{ .Fourth }}</a></li>
-                    {{ end }}
-                </ul>
+            <div class="container">
+                <div class="navbar__head">
+                    <div class=""><img class="footer__escape" src="{{ .Escape }}" alt="kek"></div>
+                    <ul class="footer__links navbar__links">
+                        {{ range .Nav}}
+                        <li class="links__beetwen"><a href="{{ .FirstURL }}" class="footer__link item-links">{{ .First
+                                }}</a></li>
+                        <li class="links__beetwen"><a href="#" class="footer__link item-links">{{ .Second }}</a></li>
+                        <li class="links__beetwen"><a href="#" class="footer__link item-links">{{ .Third }}</a></li>
+                        <li class="links__beetwen"><a href="#" class="footer__link item-links">{{ .Fourth }}</a></li>
+                        {{ end }}
+                    </ul>
+                </div>
             </div>
         </div>
         {{ end }}
